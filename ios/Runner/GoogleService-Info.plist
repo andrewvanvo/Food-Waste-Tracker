@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1048927657521-8nj85tm4rf7tt876iu41n5h33q6462g6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1048927657521-8nj85tm4rf7tt876iu41n5h33q6462g6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCrUeqdSawrdHtGaHDEYQxB8-2HFtk_Nek</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1048927657521</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>edu.oregonstate.voandre.foodwastetracker</string>
+	<key>PROJECT_ID</key>
+	<string>food-waste-tracker-5be53</string>
+	<key>STORAGE_BUCKET</key>
+	<string>food-waste-tracker-5be53.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1048927657521:ios:3693c9b23da2a20b9fbf10</string>
+</dict>
+</plist>
