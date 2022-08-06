@@ -20,6 +20,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     image = File(pickedFile!.path);
+    //setState((){});
 
     var fileName = DateTime.now().toString() + '.jpg';
     Reference storageReference = FirebaseStorage.instance.ref().child(fileName);
@@ -32,7 +33,8 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+        stream:
+            FirebaseFirestore.instance.collection('wastetracker').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData &&
               snapshot.data!.docs != null &&
@@ -45,15 +47,15 @@ class _CameraScreenState extends State<CameraScreen> {
                     itemBuilder: (context, index) {
                       var post = snapshot.data!.docs[index];
                       return ListTile(
-                          leading: Text(post['weight'].toString()),
-                          title: Text(post['title']));
+                          leading: Text(post['date']),
+                          title: Text(post['number'].toString()));
                     },
                   ),
                 ),
                 ElevatedButton(
                   child: Text('Select photo and upload data'),
                   onPressed: () {
-                    uploadData();
+                    //uploadData();
                   },
                 ),
               ],
@@ -65,7 +67,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 ElevatedButton(
                   child: Text('Select photo and upload data'),
                   onPressed: () {
-                    uploadData();
+                    //uploadData();
                   },
                 ),
               ],
@@ -74,12 +76,12 @@ class _CameraScreenState extends State<CameraScreen> {
         });
   }
 
-  void uploadData() async {
-    final url = await getImage();
-    final weight = DateTime.now().millisecondsSinceEpoch % 1000;
-    final title = 'Title ' + weight.toString();
-    FirebaseFirestore.instance
-        .collection('posts')
-        .add({'weight': weight, 'title': title, 'url': url});
-  }
+  //void uploadData() async {
+  //  final url = await getImage();
+  //  final weight = DateTime.now().millisecondsSinceEpoch % 1000;
+  //  final title = 'Title ' + weight.toString();
+  //  FirebaseFirestore.instance
+  //      .collection('posts')
+  //      .add({'weight': weight, 'title': title, 'url': url});
+  //}
 }

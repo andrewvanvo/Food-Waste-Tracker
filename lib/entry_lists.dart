@@ -10,10 +10,10 @@ class _EntryListsState extends State<EntryLists> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Wastegram')),
+      appBar: AppBar(title: Text('Wasteagram')),
       body: StreamBuilder(
           stream:
-              FirebaseFirestore.instance.collection('bandnames').snapshots(),
+              FirebaseFirestore.instance.collection('wastetracker').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasData &&
@@ -24,8 +24,8 @@ class _EntryListsState extends State<EntryLists> {
                   itemBuilder: (context, index) {
                     var post = snapshot.data!.docs[index];
                     return ListTile(
-                        title: Text(post['name']),
-                        trailing: Text(post['votes'].toString()));
+                        title: Text(post['date']),
+                        trailing: Text(post['number'].toString()));
                   });
             } else {
               return Center(child: CircularProgressIndicator());
@@ -43,9 +43,9 @@ class NewEntryButton extends StatelessWidget {
     return FloatingActionButton(
         child: Icon(Icons.photo_camera),
         onPressed: () {
-          FirebaseFirestore.instance
-              .collection('bandnames')
-              .add({'name': 'Rusty Laptop', 'votes': 22});
+          //FirebaseFirestore.instance
+          //    .collection('bandnames')
+          //    .add({'name': 'Rusty Laptop', 'votes': 22});
         });
   }
 }

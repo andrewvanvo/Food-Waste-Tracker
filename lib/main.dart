@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodwastetracker/camera_screen.dart';
 import 'entry_lists.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -15,9 +16,16 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var routes = {
+      '/': (context) => EntryLists(),
+      'camera': (context) => CameraScreen(),
+    };
+
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData.dark(),
-        home: Scaffold(body: EntryLists()));
+      title: 'Flutter Demo',
+      theme: ThemeData.dark(),
+      routes: routes,
+    );
+    //home: Scaffold(body: EntryLists()));
   }
 }
