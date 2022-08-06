@@ -25,7 +25,7 @@ class _EntryListsState extends State<EntryLists> {
                     var post = snapshot.data!.docs[index];
                     return ListTile(
                         title: Text(post['name']),
-                        subtitle: Text(post['votes'].toString()));
+                        trailing: Text(post['votes'].toString()));
                   });
             } else {
               return Center(child: CircularProgressIndicator());
@@ -37,15 +37,11 @@ class _EntryListsState extends State<EntryLists> {
   }
 }
 
-/*
- * As an example I have added functionality to add an entry to the collection
- * if the button is pressed
- */
 class NewEntryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Icon(Icons.photo_camera),
         onPressed: () {
           FirebaseFirestore.instance
               .collection('bandnames')
