@@ -43,6 +43,7 @@ class NewEntryButton extends StatelessWidget {
     return FloatingActionButton(
         child: Icon(Icons.photo_camera),
         onPressed: () {
+          Navigator.of(context).pushNamed('camera');
           //FirebaseFirestore.instance
           //    .collection('bandnames')
           //    .add({'name': 'Rusty Laptop', 'votes': 22});

@@ -32,48 +32,52 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream:
-            FirebaseFirestore.instance.collection('wastetracker').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasData &&
-              snapshot.data!.docs != null &&
-              snapshot.data!.docs.length > 0) {
-            return Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      var post = snapshot.data!.docs[index];
-                      return ListTile(
-                          leading: Text(post['date']),
-                          title: Text(post['number'].toString()));
-                    },
-                  ),
-                ),
-                ElevatedButton(
-                  child: Text('Select photo and upload data'),
-                  onPressed: () {
-                    //uploadData();
-                  },
-                ),
-              ],
-            );
-          } else {
-            return Column(
-              children: [
-                Center(child: CircularProgressIndicator()),
-                ElevatedButton(
-                  child: Text('Select photo and upload data'),
-                  onPressed: () {
-                    //uploadData();
-                  },
-                ),
-              ],
-            );
-          }
-        });
+    return Scaffold(
+        body: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('wastetracker')
+                .snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasData &&
+                  snapshot.data!.docs != null &&
+                  snapshot.data!.docs.length > 0) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //Expanded(
+                    //  child: ListView.builder(
+                    //    itemCount: snapshot.data!.docs.length,
+                    //    itemBuilder: (context, index) {
+                    //      var post = snapshot.data!.docs[index];
+                    //      return ListTile(
+                    //          leading: Text(post['date']),
+                    //          title: Text(post['number'].toString()));
+                    //    },
+                    //  ),
+                    //),
+                    ElevatedButton(
+                      child: Text('Select photo and upload data'),
+                      onPressed: () {
+                        //uploadData();
+                      },
+                    ),
+                  ],
+                );
+              } else {
+                return Column(
+                  children: [
+                    Center(child: CircularProgressIndicator()),
+                    ElevatedButton(
+                      child: Text('Select photo and upload data'),
+                      onPressed: () {
+                        //uploadData();
+                      },
+                    ),
+                  ],
+                );
+              }
+            }));
   }
 
   //void uploadData() async {
