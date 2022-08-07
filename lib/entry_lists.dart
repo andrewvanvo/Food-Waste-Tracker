@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EntryLists extends StatefulWidget {
   @override
@@ -37,13 +39,30 @@ class _EntryListsState extends State<EntryLists> {
   }
 }
 
-class NewEntryButton extends StatelessWidget {
+class NewEntryButton extends StatefulWidget {
+  @override
+  State<NewEntryButton> createState() => _NewEntryButtonState();
+}
+
+class _NewEntryButtonState extends State<NewEntryButton> {
+  File? image;
+  final ImagePicker picker = ImagePicker();
+
+  void getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    image = File(pickedFile!.path);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
         child: Icon(Icons.photo_camera),
         onPressed: () {
-          Navigator.of(context).pushNamed('camera');
+          getImage();
+          /////////////////
+          //Navigator.of(context).pushNamed('camera');
+          /////////////////
           //FirebaseFirestore.instance
           //    .collection('bandnames')
           //    .add({'name': 'Rusty Laptop', 'votes': 22});
