@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'new_post.dart';
 
 class EntryLists extends StatefulWidget {
   @override
@@ -48,10 +50,16 @@ class _NewEntryButtonState extends State<NewEntryButton> {
   File? image;
   final ImagePicker picker = ImagePicker();
 
-  void getImage() async {
+  Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     image = File(pickedFile!.path);
-    setState(() {});
+
+    var fileName = DateTime.now().toString() + '.jpg';
+    Reference storageReference = FirebaseStorage.instance.ref().child(fileName);
+    UploadTask uploadTask = storageReference.putFile(image!);
+    await uploadTask;
+    final url = await storageReference.getDownloadURL();
+    return url;
   }
 
   @override
@@ -59,13 +67,11 @@ class _NewEntryButtonState extends State<NewEntryButton> {
     return FloatingActionButton(
         child: Icon(Icons.photo_camera),
         onPressed: () {
-          getImage();
-          /////////////////
-          //Navigator.of(context).pushNamed('camera');
-          /////////////////
-          //FirebaseFirestore.instance
-          //    .collection('bandnames')
-          //    .add({'name': 'Rusty Laptop', 'votes': 22});
+          final url = getImage();
+          Navigator.of(context).pushNamed('camera', arguments: {
+            'image': image,
+            'url': url,
+          });
         });
   }
 }

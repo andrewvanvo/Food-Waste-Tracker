@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodwastetracker/camera_screen.dart';
+import 'package:foodwastetracker/new_post.dart';
 import 'entry_lists.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -18,14 +18,19 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     var routes = {
       '/': (context) => EntryLists(),
-      'camera': (context) => CameraScreen(),
     };
 
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData.dark(),
-      routes: routes,
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData.dark(),
+        routes: routes,
+        onGenerateRoute: (details) {
+          if (details.name == 'camera') {
+            final args = details.arguments as Map;
+            return MaterialPageRoute(builder: (context) => NewPost(arg: args));
+          }
+          return null;
+        });
     //home: Scaffold(body: EntryLists()));
   }
 }
