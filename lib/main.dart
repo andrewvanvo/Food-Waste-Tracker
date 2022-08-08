@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodwastetracker/new_post.dart';
 import 'entry_lists.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'loading_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +19,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     var routes = {
       '/': (context) => EntryLists(),
+      'loading': (context) => LoadingPage(),
     };
 
     return MaterialApp(

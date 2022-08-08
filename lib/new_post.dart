@@ -13,27 +13,21 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> {
+  File? imageLink;
+  Future grabImage() async {
+    imageLink = widget.arg['url'];
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(widget.arg);
     return Scaffold(
-      body: CircularProgressIndicator(),
-    );
-    //File? image;
-    //String? url;
-    //image = widget.arg['image'];
-    //url = widget.arg['url'];
-    //print(image);
-    //print(url);
-//
-    //if (image != null) {
-    //  return Scaffold(
-    //    body: Column(children: [
-    //      Image.file(image),
-    //    ]),
-    //  );
-    //} else {
-    //  return Scaffold(body: Center(child: CircularProgressIndicator()));
-    //}
+        body: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: Image.file(widget.arg['image']),
+        )
+      ],
+    ));
   }
 }

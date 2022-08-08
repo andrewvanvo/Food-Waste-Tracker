@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'new_post.dart';
+import 'loading_page.dart';
 
 class EntryLists extends StatefulWidget {
   @override
@@ -59,6 +60,7 @@ class _NewEntryButtonState extends State<NewEntryButton> {
     UploadTask uploadTask = storageReference.putFile(image!);
     await uploadTask;
     final url = await storageReference.getDownloadURL();
+    setState(() {});
     return url;
   }
 
@@ -66,12 +68,15 @@ class _NewEntryButtonState extends State<NewEntryButton> {
   Widget build(BuildContext context) {
     return FloatingActionButton(
         child: Icon(Icons.photo_camera),
-        onPressed: () {
-          final url = getImage();
-          Navigator.of(context).pushNamed('camera', arguments: {
-            'image': image,
-            'url': url,
-          });
+        onPressed: () async {
+          Navigator.of(context).pushNamed('loading');
+          final url = await getImage();
+          if (url != null) {
+            Navigator.of(context).pushNamed('camera', arguments: {
+              'image': image,
+              'url': url,
+            });
+          }
         });
   }
 }
