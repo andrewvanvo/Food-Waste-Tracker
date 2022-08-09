@@ -82,13 +82,14 @@ class _NewPostState extends State<NewPost> {
           ))
         ],
       ),
-
-      //floatingActionButton: FloatingActionButton(
-      //  //onPressed: (),
-      //  child: Icon(Icons.upload),
-      //),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      //onTap:
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.of(context).pushNamed('/');
+        },
+        icon: Icon(Icons.upload),
+        label: Text('Upload'),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
