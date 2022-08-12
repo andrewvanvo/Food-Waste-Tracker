@@ -103,17 +103,20 @@ class _NewPostState extends State<NewPost> {
                   )))
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          final date = getDate();
-          formKey.currentState!.save();
-          uploadData(date, widget.arg['url'], formValue, locationData?.latitude,
-              locationData?.longitude);
-          Navigator.of(context).popAndPushNamed('home');
-        },
-        icon: Icon(Icons.upload),
-        label: Text('Upload'),
-      ),
+      floatingActionButton: Semantics(
+          child: FloatingActionButton.extended(
+            onPressed: () async {
+              final date = getDate();
+              formKey.currentState!.save();
+              uploadData(date, widget.arg['url'], formValue,
+                  locationData?.latitude, locationData?.longitude);
+              Navigator.of(context).popAndPushNamed('home');
+            },
+            icon: Icon(Icons.upload),
+            label: Text('Upload'),
+          ),
+          button: true,
+          onTapHint: "Upload Data to Cloud Storage"),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
