@@ -14,11 +14,15 @@ class EntryLists extends StatefulWidget {
 class _EntryListsState extends State<EntryLists> {
   @override
   Widget build(BuildContext context) {
+    var id = DateTime.now().toString();
+
     return Scaffold(
       appBar: AppBar(title: Text('Wasteagram')),
       body: StreamBuilder(
-          stream:
-              FirebaseFirestore.instance.collection('wastetracker').snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('wastetracker')
+              .orderBy('id')
+              .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasData &&
@@ -46,7 +50,11 @@ class _EntryListsState extends State<EntryLists> {
               return Center(child: CircularProgressIndicator());
             }
           }),
-      floatingActionButton: NewEntryButton(),
+      floatingActionButton: Semantics(
+        child: NewEntryButton(),
+        button: true,
+        onTapHint: "Press to select an image",
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

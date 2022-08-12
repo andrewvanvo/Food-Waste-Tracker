@@ -9,7 +9,6 @@ class LoadingPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('LOADING PAGE'),
           Center(
             child: CircularProgressIndicator(),
           )

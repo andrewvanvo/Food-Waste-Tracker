@@ -32,15 +32,15 @@ class Entry extends StatelessWidget {
           )),
           Flexible(
               child: Row(
-            children: [Text(arg['quantity'])],
+            children: [Text('Amount:${arg['quantity']}')],
           )),
           Flexible(
               child: Row(
-            children: [Text(arg['lat'])],
+            children: [Text('Latitude:${arg['lat']}')],
           )),
           Flexible(
               child: Row(
-            children: [Text(arg['lon'])],
+            children: [Text('Longitude:${arg['lon']}')],
           )),
         ],
       )),

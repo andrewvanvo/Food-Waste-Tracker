@@ -57,7 +57,7 @@ class _NewPostState extends State<NewPost> {
   String? getDate() {
     String? formattedDate;
     DateTime date = DateTime.now();
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final DateFormat formatter = DateFormat('E, MMMM, d, y');
     return formattedDate = formatter.format(date);
   }
 
@@ -69,6 +69,7 @@ class _NewPostState extends State<NewPost> {
 
     return Scaffold(
       appBar: AppBar(
+        title: Text('New Post'),
         leading: GestureDetector(
           onTap: () {
             Navigator.popAndPushNamed(context, 'home');
@@ -117,9 +118,10 @@ class _NewPostState extends State<NewPost> {
           child: FloatingActionButton.extended(
             onPressed: () async {
               final date = getDate();
+              final id = DateTime.now().toString();
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
-                uploadData(date, widget.arg['url'], formValue,
+                uploadData(id, date, widget.arg['url'], formValue,
                     locationData?.latitude, locationData?.longitude);
                 Navigator.of(context).popAndPushNamed('home');
               }
@@ -134,13 +136,15 @@ class _NewPostState extends State<NewPost> {
   }
 }
 
-void uploadData(date, url, quantity, lat, long) async {
+void uploadData(id, date, url, quantity, lat, long) async {
+  final passedid = id;
   final passeddate = date;
   final passedurl = url;
   final passedquantity = quantity;
   final passedlat = lat;
   final passedlon = long;
   FirebaseFirestore.instance.collection('wastetracker').add({
+    'id': passedid,
     'date': passeddate,
     'url': passedurl,
     'quantity': passedquantity,
