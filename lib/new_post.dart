@@ -68,6 +68,16 @@ class _NewPostState extends State<NewPost> {
     String? formValue;
 
     return Scaffold(
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.popAndPushNamed(context, 'home');
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+          ),
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -99,7 +109,7 @@ class _NewPostState extends State<NewPost> {
           formKey.currentState!.save();
           uploadData(date, widget.arg['url'], formValue, locationData?.latitude,
               locationData?.longitude);
-          Navigator.of(context).popAndPushNamed('/');
+          Navigator.of(context).popAndPushNamed('home');
         },
         icon: Icon(Icons.upload),
         label: Text('Upload'),

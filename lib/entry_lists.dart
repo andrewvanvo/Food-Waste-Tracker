@@ -80,6 +80,7 @@ class _NewEntryButtonState extends State<NewEntryButton> {
         child: Icon(Icons.photo_camera),
         onPressed: () async {
           Navigator.of(context).pushNamed('loading');
+
           final url = await getImage();
           if (url != null) {
             Navigator.of(context).pushNamed('camera', arguments: {

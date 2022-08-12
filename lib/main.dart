@@ -19,13 +19,14 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var routes = {
-      '/': (context) => EntryLists(),
+      'home': (context) => EntryLists(),
       'loading': (context) => LoadingPage(),
     };
 
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData.dark(),
+        initialRoute: 'home',
         routes: routes,
         onGenerateRoute: (details) {
           if (details.name == 'camera') {
