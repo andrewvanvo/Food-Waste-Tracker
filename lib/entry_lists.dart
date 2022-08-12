@@ -30,7 +30,7 @@ class _EntryListsState extends State<EntryLists> {
                     var post = snapshot.data!.docs[index];
                     return ListTile(
                         title: Text(post['date']),
-                        trailing: Text(post['number'].toString()));
+                        trailing: Text(post['quantity'].toString()));
                   });
             } else {
               return Center(child: CircularProgressIndicator());

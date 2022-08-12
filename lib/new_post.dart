@@ -5,13 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
-
-class DataFields {
-  DateTime date = DateTime.now();
-  String? url;
-  int? amount;
-  String? coordinates;
-}
+import 'package:intl/intl.dart';
 
 class NewPost extends StatefulWidget {
   final Map arg;
@@ -60,8 +54,19 @@ class _NewPostState extends State<NewPost> {
     setState(() {});
   }
 
+  String? getDate() {
+    String? formattedDate;
+    DateTime date = DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formattedDate = formatter.format(date);
+  }
+
   @override
   Widget build(BuildContext context) {
+    //getDate();
+    final formKey = GlobalKey<FormState>();
+    String? formValue;
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -76,14 +81,26 @@ class _NewPostState extends State<NewPost> {
             child: Image.file(widget.arg['image']),
           ),
           Center(
-              child: TextField(
-            keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          ))
+              child: Form(
+                  key: formKey,
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    onSaved: (value) {
+                      formValue = value;
+                    },
+                    //validator fn?
+                  )))
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
+        onPressed: () async {
+          final date = getDate();
+          formKey.currentState!.save();
+
+          uploadData(date, widget.arg['url'], formValue, locationData?.latitude,
+              locationData?.longitude);
+
           Navigator.of(context).pushNamed('/');
         },
         icon: Icon(Icons.upload),
@@ -92,4 +109,19 @@ class _NewPostState extends State<NewPost> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
+}
+
+void uploadData(date, url, quantity, lat, long) async {
+  final passeddate = date;
+  final passedurl = url;
+  final passedquantity = quantity;
+  final passedlat = lat;
+  final passedlon = long;
+  FirebaseFirestore.instance.collection('wastetracker').add({
+    'date': passeddate,
+    'url': passedurl,
+    'quantity': passedquantity,
+    'latitude': passedlat,
+    'longitude': passedlon
+  });
 }
