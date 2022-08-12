@@ -94,12 +94,22 @@ class _NewPostState extends State<NewPost> {
               child: Form(
                   key: formKey,
                   child: TextFormField(
+                    autofocus: true,
+                    decoration:
+                        InputDecoration(labelText: 'Number of Wasted Items'),
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     onSaved: (value) {
                       formValue = value;
                     },
-                    //validator fn?
+                    validator: (String? value) {
+                      //if validator returns null, it's good
+                      if (value!.isEmpty) {
+                        return "Please enter an amount";
+                      } else {
+                        return null;
+                      }
+                    },
                   )))
         ],
       ),
@@ -107,10 +117,12 @@ class _NewPostState extends State<NewPost> {
           child: FloatingActionButton.extended(
             onPressed: () async {
               final date = getDate();
-              formKey.currentState!.save();
-              uploadData(date, widget.arg['url'], formValue,
-                  locationData?.latitude, locationData?.longitude);
-              Navigator.of(context).popAndPushNamed('home');
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+                uploadData(date, widget.arg['url'], formValue,
+                    locationData?.latitude, locationData?.longitude);
+                Navigator.of(context).popAndPushNamed('home');
+              }
             },
             icon: Icon(Icons.upload),
             label: Text('Upload'),
