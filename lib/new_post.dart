@@ -97,11 +97,9 @@ class _NewPostState extends State<NewPost> {
         onPressed: () async {
           final date = getDate();
           formKey.currentState!.save();
-
           uploadData(date, widget.arg['url'], formValue, locationData?.latitude,
               locationData?.longitude);
-
-          Navigator.of(context).pushNamed('/');
+          Navigator.of(context).popAndPushNamed('/');
         },
         icon: Icon(Icons.upload),
         label: Text('Upload'),

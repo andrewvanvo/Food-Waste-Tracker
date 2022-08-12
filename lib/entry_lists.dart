@@ -29,8 +29,18 @@ class _EntryListsState extends State<EntryLists> {
                   itemBuilder: (context, index) {
                     var post = snapshot.data!.docs[index];
                     return ListTile(
-                        title: Text(post['date']),
-                        trailing: Text(post['quantity'].toString()));
+                      title: Text(post['date']),
+                      trailing: Text(post['quantity'].toString()),
+                      onTap: () {
+                        Navigator.of(context).pushNamed('entry', arguments: {
+                          'date': post['date'],
+                          'url': post['url'],
+                          'quantity': post['quantity'],
+                          'lat': post['latitude'].toString(),
+                          'lon': post['longitude'].toString(),
+                        });
+                      },
+                    );
                   });
             } else {
               return Center(child: CircularProgressIndicator());
