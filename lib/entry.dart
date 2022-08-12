@@ -26,7 +26,9 @@ class Entry extends StatelessWidget {
           )),
           Flexible(
               child: Row(
-            children: [Text(arg['url'])],
+            children: [
+              Image.network(arg['url']),
+            ],
           )),
           Flexible(
               child: Row(
