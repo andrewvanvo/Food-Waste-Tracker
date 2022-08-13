@@ -2,9 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:foodwastetracker/model/data_fields.dart';
 import 'package:image_picker/image_picker.dart';
 import 'new_post.dart';
 import 'loading_page.dart';
+import '../model/data_fields.dart';
 
 class EntryLists extends StatefulWidget {
   @override
@@ -32,6 +34,13 @@ class _EntryListsState extends State<EntryLists> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     var post = snapshot.data!.docs[index];
+                    DataFields? data;
+                    data?.id = post['id'];
+                    data?.date = post['date'];
+                    data?.url = post['url'];
+                    data?.quantity = post['quantity'];
+                    data?.lat = post['latitude'];
+                    data?.lon = post['longitude'];
                     return ListTile(
                       title: Text(post['date']),
                       trailing: Text(post['quantity'].toString()),
